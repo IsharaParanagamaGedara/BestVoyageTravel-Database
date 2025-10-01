@@ -181,3 +181,85 @@ SELECT * FROM Sailor;
 SELECT * FROM Sailor_Address;
 SELECT * FROM Captain;
 SELECT * FROM Boat_Sailor;
+
+-------------------------------------------------------
+-- ADDITIONAL INSERTS (Records 11–20 for each table)
+-------------------------------------------------------
+
+-- VOYAGE
+INSERT INTO Voyage VALUES
+('V011', 'Pasikudah Bay Ride', 'Crystal clear waters of Pasikudah', 15000.00, 3),
+('V012', 'Wilpattu Coast Safari', 'Wildlife and coastal exploration', 27000.00, 6),
+('V013', 'Arugam Surf Voyage', 'Surf and sail in Arugam Bay', 22000.00, 4),
+('V014', 'Puttalam Lagoon', 'Bird watching cruise', 16000.00, 3),
+('V015', 'Dondra Point Sail', 'Southernmost point of Sri Lanka', 18000.00, 4),
+('V016', 'Ella Scenic Lake Tour', 'Lake-side voyage with mountain views', 24000.00, 5),
+('V017', 'Kilinochchi Explorer', 'Northern inland water tour', 21000.00, 4),
+('V018', 'Polonnaruwa Heritage Voyage', 'Ancient city by water', 26000.00, 6),
+('V019', 'Bentota River Cruise', 'Mangrove forest and lagoon', 14000.00, 2),
+('V020', 'Hikkaduwa Coral Voyage', 'Snorkeling and coral reef view', 20000.00, 3);
+
+-- BOAT
+INSERT INTO Boat VALUES
+('B011', 'V011'), ('B012', 'V012'), ('B013', 'V013'),
+('B014', 'V014'), ('B015', 'V015'), ('B016', 'V016'),
+('B017', 'V017'), ('B018', 'V018'), ('B019', 'V019'),
+('B020', 'V020');
+
+-- BOAT_DETAILS
+INSERT INTO Boat_Details VALUES
+('B011', 22), ('B012', 48), ('B013', 33), ('B014', 19), ('B015', 27),
+('B016', 42), ('B017', 31), ('B018', 50), ('B019', 24), ('B020', 36);
+
+-- SAILOR
+INSERT INTO Sailor VALUES
+('E011', 'Tharindu', 'Ranasinghe', '0771111111', '0111111111', '2021-03-15', 4, 29, 70000.00),
+('E012', 'Lakshan', 'Wijesinghe', '0772222222', '0112222222', '2020-07-01', 6, 32, 82000.00),
+('E013', 'Kasun', 'Abeywardena', '0773333333', '0113333333', '2019-05-20', 8, 36, 90000.00),
+('E014', 'Dineth', 'Ratnayake', '0774444444', '0114444444', '2022-10-10', 2, 25, 58000.00),
+('E015', 'Isuru', 'Dissanayake', '0775555555', '0115555555', '2018-04-12', 9, 39, 97000.00),
+('E016', 'Sandun', 'Gunawardena', '0776666666', '0116666666', '2017-11-05', 12, 44, 115000.00),
+('E017', 'Chathura', 'Rajapaksha', '0777777777', '0117777777', '2016-06-18', 14, 48, 128000.00),
+('E018', 'Dulaj', 'Herath', '0778888888', '0118888888', '2019-08-25', 7, 34, 86000.00),
+('E019', 'Rashmi', 'Senanayake', '0779999999', '0119999999', '2020-12-01', 5, 31, 79000.00),
+('E020', 'Gayan', 'Wickramasinghe', '0711231234', '0111231234', '2021-09-09', 3, 27, 67000.00);
+
+-- SAILOR_ADDRESS
+INSERT INTO Sailor_Address VALUES
+('E011', '21K', '45', 'Badulla'),
+('E012', '10L', '33', 'Polonnaruwa'),
+('E013', '8M', '72', 'Ratnapura'),
+('E014', '14N', '19', 'Kalutara'),
+('E015', '7O', '28', 'Kegalle'),
+('E016', '3P', '54', 'Chilaw'),
+('E017', '19Q', '88', 'Vavuniya'),
+('E018', '6R', '41', 'Puttalam'),
+('E019', '11S', '29', 'Monaragala'),
+('E020', '4T', '61', 'Hambantota');
+
+-- CAPTAIN
+INSERT INTO Captain VALUES
+('V011', 'E011', '2022-05-11'),
+('V012', 'E012', '2021-07-22'),
+('V013', 'E013', '2020-09-30'),
+('V014', 'E014', '2023-01-12'),
+('V015', 'E015', '2020-03-08'),
+('V016', 'E016', '2019-11-14'),
+('V017', 'E017', '2021-04-18'),
+('V018', 'E018', '2022-09-27'),
+('V019', 'E019', '2021-02-05'),
+('V020', 'E020', '2023-03-21');
+
+-- BOAT_SAILOR
+INSERT INTO Boat_Sailor VALUES
+('B011', 'E011', 6.0),
+('B012', 'E012', 7.5),
+('B013', 'E013', 8.0),
+('B014', 'E014', 5.0),
+('B015', 'E015', 6.5),
+('B016', 'E016', 9.0),
+('B017', 'E017', 8.5),
+('B018', 'E018', 7.0),
+('B019', 'E019', 6.5),
+('B020', 'E020', 5.5);
+
