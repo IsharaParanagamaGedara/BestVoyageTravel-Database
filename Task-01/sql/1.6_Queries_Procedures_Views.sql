@@ -174,3 +174,71 @@ SELECT s.employee_number, s.first_name, s.last_name,
 FROM Sailor s
 JOIN Boat_Sailor bs ON s.employee_number = bs.employee_number
 JOIN Boat b ON bs.registration_number = b.registration_number;
+
+-------------------------------------------------------
+-- (05) Stored Procedures
+-------------------------------------------------------
+
+-- 1. Procedure: Get Sailor details by employee_number
+DELIMITER //
+CREATE PROCEDURE GetSailorDetails(IN emp_no VARCHAR(20))
+BEGIN
+    SELECT employee_number, first_name, last_name, salary
+    FROM Sailor
+    WHERE employee_number = emp_no;
+END //
+DELIMITER ;
+
+-- Example call:
+CALL GetSailorDetails('E004');
+
+-- 2. Procedure: Get Voyage details by captain_employee_number
+DELIMITER //
+CREATE PROCEDURE GetVoyageByCaptain(IN cap_no VARCHAR(20))
+BEGIN
+    SELECT v.voyage_number,
+           v.name AS voyage_name,
+           v.description,
+           v.cost,
+           v.duration,
+           s.first_name AS captain_first,
+           s.last_name  AS captain_last
+    FROM Captain c
+    JOIN Voyage v 
+        ON c.voyage_number = v.voyage_number
+    JOIN Sailor s 
+        ON c.captain_employee_number = s.employee_number
+    WHERE c.captain_employee_number = cap_no;
+END //
+DELIMITER ;
+
+-- Example call:
+CALL GetVoyageByCaptain('E006');
+
+-- 3. Procedure: Get all boats for a given voyage
+DELIMITER //
+CREATE PROCEDURE GetBoatsByVoyage(IN v_no VARCHAR(20))
+BEGIN
+    SELECT b.registration_number, bd.num_of_passengers
+    FROM Boat b
+    JOIN Boat_Details bd ON b.registration_number = bd.registration_number
+    WHERE b.voyage_number = v_no;
+END //
+DELIMITER ;
+
+-- Example:
+CALL GetBoatsByVoyage('V008');
+
+-- 4. Procedure: Increase salary of sailors by percentage for a given city
+DELIMITER //
+CREATE PROCEDURE UpdateSailorSalaryByCity(IN city_name VARCHAR(50), IN pct_increase DECIMAL(5,2))
+BEGIN
+    UPDATE Sailor s
+    JOIN Sailor_Address sa ON s.employee_number = sa.employee_number
+    SET s.salary = s.salary * (1 + pct_increase/100)
+    WHERE sa.address_city = city_name;
+END //
+DELIMITER ;
+
+-- Example:
+CALL UpdateSailorSalaryByCity('Colombo', 10);
