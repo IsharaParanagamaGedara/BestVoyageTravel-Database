@@ -129,3 +129,49 @@ SELECT registration_number, num_of_passengers
 FROM Boat_Details
 WHERE num_of_passengers BETWEEN 20 AND 40;
 GO
+
+-------------------------------------------------------
+-- (04) Inner Joins
+-------------------------------------------------------
+
+-- 1. Names of all sailors working on boat 'B003'
+SELECT s.employee_number, s.first_name, s.last_name
+FROM Sailor s
+INNER JOIN Boat_Sailor bs 
+    ON s.employee_number = bs.employee_number
+WHERE bs.registration_number = 'B003';
+
+-- 2. Boats and their assigned voyages
+SELECT b.registration_number, v.name AS voyage_name
+FROM Boat b
+INNER JOIN Voyage v 
+    ON b.voyage_number = v.voyage_number;
+
+-- 3. Boats with their assigned sailors and working hours
+SELECT b.registration_number,
+       s.first_name,
+       s.last_name,
+       bs.working_hours
+FROM Boat b
+INNER JOIN Boat_Sailor bs 
+    ON b.registration_number = bs.registration_number
+INNER JOIN Sailor s 
+    ON bs.employee_number = s.employee_number;
+    
+-- 4. Captains with their voyages and appointment dates
+SELECT c.voyage_number,
+       v.name AS voyage_name,
+       s.first_name AS captain_first,
+       s.last_name  AS captain_last,
+       c.captain_appointed_date
+FROM Captain c
+JOIN Voyage v ON c.voyage_number = v.voyage_number
+JOIN Sailor s ON c.captain_employee_number = s.employee_number;
+
+-- 5. Sailors and the boats they are working on (including hours)
+SELECT s.employee_number, s.first_name, s.last_name,
+       b.registration_number, bs.working_hours
+FROM Sailor s
+JOIN Boat_Sailor bs ON s.employee_number = bs.employee_number
+JOIN Boat b ON bs.registration_number = b.registration_number;
+GO
