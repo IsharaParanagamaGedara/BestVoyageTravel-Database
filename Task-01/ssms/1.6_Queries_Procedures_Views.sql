@@ -253,3 +253,113 @@ GO
 -- Example:
 EXEC UpdateSailorSalaryByCity @city_name = 'Colombo', @pct_increase = 10;
 GO
+
+-------------------------------------------------------
+-- (06) Views
+-------------------------------------------------------
+
+-- 1. View: Boats and their voyages
+CREATE OR ALTER VIEW vw_BoatVoyageDetails AS
+SELECT b.registration_number,
+       bd.num_of_passengers,
+       v.voyage_number,
+       v.name AS voyage_name,
+       v.cost,
+       v.duration
+FROM Boat b
+JOIN Boat_Details bd 
+    ON b.registration_number = bd.registration_number
+JOIN Voyage v 
+    ON b.voyage_number = v.voyage_number;
+GO
+
+-- Usage: 
+SELECT * FROM vw_BoatVoyageDetails;
+GO
+
+-- 2. View: Sailor and Address details
+CREATE OR ALTER VIEW vw_SailorAddress AS
+SELECT s.employee_number,
+       s.first_name,
+       s.last_name,
+       sa.address_apartment_number,
+       sa.address_street_number,
+       sa.address_city
+FROM Sailor s
+JOIN Sailor_Address sa 
+    ON s.employee_number = sa.employee_number;
+GO
+
+-- Usage: 
+SELECT * FROM vw_SailorAddress;
+GO
+
+-- 3. View: Sailor with Contact + Address details
+CREATE OR ALTER VIEW vw_SailorFullDetails AS
+SELECT s.employee_number,
+       s.first_name,
+       s.last_name,
+       s.mobile_number,
+       s.home_phone_number,
+       sa.address_apartment_number,
+       sa.address_street_number,
+       sa.address_city
+FROM Sailor s
+JOIN Sailor_Address sa 
+    ON s.employee_number = sa.employee_number;
+GO
+
+-- Usage: 
+SELECT * FROM vw_SailorFullDetails;
+GO
+
+-- 4. View: Voyages with captain names
+CREATE OR ALTER VIEW vw_VoyageCaptains AS
+SELECT v.voyage_number,
+       v.name AS voyage_name,
+       s.first_name AS captain_first,
+       s.last_name AS captain_last,
+       c.captain_appointed_date
+FROM Voyage v
+JOIN Captain c ON v.voyage_number = c.voyage_number
+JOIN Sailor s ON c.captain_employee_number = s.employee_number;
+GO
+
+-- Usage: 
+SELECT * FROM vw_VoyageCaptains;
+GO
+
+-- 5. View: Sailors with their assigned boats and voyages
+CREATE OR ALTER VIEW vw_SailorAssignments AS
+SELECT s.employee_number,
+       s.first_name,
+       s.last_name,
+       b.registration_number,
+       v.voyage_number,
+       v.name AS voyage_name,
+       bs.working_hours
+FROM Sailor s
+JOIN Boat_Sailor bs ON s.employee_number = bs.employee_number
+JOIN Boat b ON bs.registration_number = b.registration_number
+JOIN Voyage v ON b.voyage_number = v.voyage_number;
+GO
+
+-- Usage: 
+SELECT * FROM vw_SailorAssignments;
+GO
+
+-- 6. View: High-earning sailors (>50,000) with city
+CREATE OR ALTER VIEW vw_HighEarningSailors AS
+SELECT s.employee_number,
+       s.first_name,
+       s.last_name,
+       s.salary,
+       sa.address_city
+FROM Sailor s
+JOIN Sailor_Address sa ON s.employee_number = sa.employee_number
+WHERE s.salary > 50000;
+GO
+
+-- Usage: 
+SELECT * FROM vw_HighEarningSailors;
+GO
