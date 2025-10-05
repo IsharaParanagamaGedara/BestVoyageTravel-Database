@@ -293,3 +293,13 @@ INSERT INTO Boat_Sailor VALUES
 ('B019', 'E019', 6.5),
 ('B020', 'E020', 5.5);
 GO
+
+-------------------------------------------------------
+-- Database Backup (Full Backup)
+-------------------------------------------------------
+BACKUP DATABASE BestVoyageTravel
+TO DISK = 'D:\Projects\Git repo\BestVoyageTravel-Database\Task-01\backups\BestVoyageTravel_full.bak'
+WITH FORMAT, INIT,  
+     NAME = 'BestVoyageTravel-Full Backup',
+     STATS = 10;
+GO
