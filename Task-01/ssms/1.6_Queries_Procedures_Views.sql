@@ -51,3 +51,37 @@ FROM Voyage v
 LEFT JOIN Boat b ON v.voyage_number = b.voyage_number
 GROUP BY v.voyage_number, v.name;
 GO
+
+-------------------------------------------------------
+-- (02) Wildcard Searches
+-------------------------------------------------------
+
+-- 1. Sailors whose last name starts with 'Sil'
+SELECT employee_number, first_name, last_name
+FROM Sailor
+WHERE last_name LIKE 'Sil%';
+
+-- 2. Sailors whose first name starts with N, M, or P
+SELECT employee_number, first_name, last_name
+FROM Sailor
+WHERE first_name LIKE 'N%' 
+   OR first_name LIKE 'M%' 
+   OR first_name LIKE 'P%';
+
+-- 3. Voyages with names starting with 'C', 'K', or 'T'
+SELECT voyage_number, name, description, cost, duration
+FROM Voyage
+WHERE name LIKE 'C%' 
+   OR name LIKE 'K%' 
+   OR name LIKE 'T%';
+
+-- 4. Sailors with phone numbers starting with '0771' (mobile prefix)
+SELECT employee_number, first_name, last_name, mobile_number
+FROM Sailor
+WHERE mobile_number LIKE '0771%';
+
+-- 5. Voyages whose description contains the word 'adventure'
+SELECT voyage_number, name, description
+FROM Voyage
+WHERE description LIKE '%adventure%';
+GO
