@@ -193,3 +193,15 @@ INSERT INTO Boat_Sailor VALUES
 ('B009', 'E009', 6.0),
 ('B010', 'E010', 5.0);
 GO
+
+-------------------------------------------------------
+-- DEMONSTRATE DATA
+-------------------------------------------------------
+SELECT * FROM Voyage;
+SELECT * FROM Boat;
+SELECT * FROM Boat_Details;
+SELECT * FROM Sailor;
+SELECT * FROM Sailor_Address;
+SELECT * FROM Captain;
+SELECT * FROM Boat_Sailor;
+GO
