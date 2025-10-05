@@ -175,3 +175,81 @@ FROM Sailor s
 JOIN Boat_Sailor bs ON s.employee_number = bs.employee_number
 JOIN Boat b ON bs.registration_number = b.registration_number;
 GO
+
+-------------------------------------------------------
+-- (05) Stored Procedures
+-------------------------------------------------------
+
+-- 1. Procedure: Get Sailor details by employee_number
+CREATE OR ALTER PROCEDURE GetSailorDetails
+    @emp_no NVARCHAR(20)
+AS
+BEGIN
+    SELECT employee_number, first_name, last_name, salary
+    FROM Sailor
+    WHERE employee_number = @emp_no;
+END;
+GO
+
+-- Example:
+EXEC GetSailorDetails @emp_no = 'E004';
+GO
+
+-- 2. Procedure: Get Voyage details by captain_employee_number
+CREATE OR ALTER PROCEDURE GetVoyageByCaptain
+    @cap_no NVARCHAR(20)
+AS
+BEGIN
+    SELECT v.voyage_number,
+           v.name AS voyage_name,
+           v.description,
+           v.cost,
+           v.duration,
+           s.first_name AS captain_first,
+           s.last_name  AS captain_last
+    FROM Captain c
+    JOIN Voyage v 
+        ON c.voyage_number = v.voyage_number
+    JOIN Sailor s 
+        ON c.captain_employee_number = s.employee_number
+    WHERE c.captain_employee_number = @cap_no;
+END;
+GO
+
+-- Example:
+EXEC GetVoyageByCaptain @cap_no = 'E006';
+GO
+
+-- 3. Procedure: Get all boats for a given voyage
+CREATE OR ALTER PROCEDURE GetBoatsByVoyage
+    @v_no NVARCHAR(20)
+AS
+BEGIN
+    SELECT b.registration_number, bd.num_of_passengers
+    FROM Boat b
+    JOIN Boat_Details bd ON b.registration_number = bd.registration_number
+    WHERE b.voyage_number = @v_no;
+END;
+GO
+
+-- Example:
+EXEC GetBoatsByVoyage @v_no = 'V008';
+GO
+
+-- 4. Procedure: Increase salary of sailors by percentage for a given city
+CREATE OR ALTER PROCEDURE UpdateSailorSalaryByCity
+    @city_name NVARCHAR(50),
+    @pct_increase DECIMAL(5,2)
+AS
+BEGIN
+    UPDATE s
+    SET s.salary = s.salary * (1 + @pct_increase / 100)
+    FROM Sailor s
+    INNER JOIN Sailor_Address sa ON s.employee_number = sa.employee_number
+    WHERE sa.address_city = @city_name;
+END;
+GO
+
+-- Example:
+EXEC UpdateSailorSalaryByCity @city_name = 'Colombo', @pct_increase = 10;
+GO
