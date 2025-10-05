@@ -85,3 +85,47 @@ SELECT voyage_number, name, description
 FROM Voyage
 WHERE description LIKE '%adventure%';
 GO
+
+-------------------------------------------------------
+-- (03) Selection with Conditions
+-------------------------------------------------------
+
+-- 1. Boats with >15 passengers AND voyage cost < 25,000
+SELECT b.registration_number,
+       bd.num_of_passengers,
+       v.cost
+FROM Boat b
+JOIN Boat_Details bd 
+    ON b.registration_number = bd.registration_number
+JOIN Voyage v 
+    ON b.voyage_number = v.voyage_number
+WHERE bd.num_of_passengers > 15 
+  AND v.cost < 25000;
+
+-- 2. Sailors with >5 years experience AND salary > 50,000
+SELECT employee_number, first_name, last_name, experience, salary
+FROM Sailor
+WHERE experience > 5 
+  AND salary > 50000;
+
+-- 3. Voyages with duration >5 days AND cost < 35,000
+SELECT voyage_number, name, duration, cost
+FROM Voyage
+WHERE duration > 5 
+  AND cost < 35000;
+  
+-- 4. Sailors earning between 40,000 and 70,000
+SELECT employee_number, first_name, last_name, salary
+FROM Sailor
+WHERE salary BETWEEN 40000 AND 70000;
+
+-- 5. Voyages with cost > 20,000 but duration <= 5
+SELECT voyage_number, name, duration, cost
+FROM Voyage
+WHERE cost > 20000 AND duration <= 5;
+
+-- 6. Boats with passenger capacity between 20 and 40
+SELECT registration_number, num_of_passengers
+FROM Boat_Details
+WHERE num_of_passengers BETWEEN 20 AND 40;
+GO
