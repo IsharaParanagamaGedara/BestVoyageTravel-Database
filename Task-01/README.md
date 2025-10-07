@@ -15,7 +15,6 @@ The objective is to demonstrate:
 - Sound database design principles  
 - Implement keys, constraints, and normalization rules 
 - Develop optimized SQL scripts for data retrieval and reporting
-- Demonstrate database backup (SQL Server)
 - Full compliance with the given requirements  
 
 ---
@@ -106,8 +105,7 @@ Developed SQL operations to extract insights and support business processes:
 1. Open **SQL Server Management Studio (SSMS)** (or preferred SQL client).  
 2. Run `1.5_Create_and_Insert.sql` to create the database and load sample data.  
 3. Run `1.6_Queries_Procedures_Views.sql` to execute queries, procedures, and views.
-4. (Optional) Use the backup and restore scripts to simulate recovery. 
-5. Verify results using `SELECT`, `EXEC` and `CALL` commands.
+4. Verify results using `SELECT`, `EXEC` and `CALL` commands.
 ---
 
 ## Deliverables
